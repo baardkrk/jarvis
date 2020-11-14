@@ -1,24 +1,20 @@
-# Including packages from parent directory
-import os
-import sys
-sys.path.append(os.path.abspath(
-    os.path.join(
-        os.path.dirname(__file__),
-        '..'
-    )))
+import logging
 
 import sensors.air_quality as aq
 import sensors.temprature as tmp
 import database.reading as dbr
 
+# Defining logger for this module
+log = logging.getLogger(__name__)
 
-def get_temprature():
+
+def get_temperature():
     return tmp.read_temprature().toJSON()
 
 
-def get_air_quality(numReadings):
-    print('Retrieving: ' + str(numReadings))
-    return dbr.read('', '', numReadings)
+def get_air_quality(numReadings=1):
+    log.debug('Retrieving: ' + str(numReadings))
+    return dbr.read('mydbSchema', 'air_quality', numReadings)
 
 
 def test():
