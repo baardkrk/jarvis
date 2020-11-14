@@ -1,5 +1,9 @@
+import logging
+
 from datetime import datetime
 from database import writing
+
+log = logging.getLogger(__name__)
 
 
 class AirQualityReading:
@@ -12,7 +16,7 @@ class AirQualityReading:
         return self.__dict__
 
 
-def read_air_quality():
+def read_air_quality(device='default'):
     # TODO: implement this!
-    print('Reading air quality')
+    log.info('Reading air quality on device \'{}\'.'.format(device))
     return AirQualityReading(442.93)

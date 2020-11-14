@@ -1,7 +1,7 @@
 import logging
 
 import sensors.air_quality as aq
-import sensors.temprature as tmp
+import sensors.temperature as tmp
 import database.reading as dbr
 
 # Defining logger for this module
@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 
 
 def get_temperature():
-    return tmp.read_temprature().toJSON()
+    return tmp.read_temperature().toJSON()
 
 
 def get_air_quality(numReadings=1):

@@ -1,4 +1,8 @@
+import logging
 from datetime import datetime
+
+log = logging.getLogger(__name__)
+
 
 class TempratureReading:
     """A temprature reading"""
@@ -10,7 +14,7 @@ class TempratureReading:
         return self.__dict__
 
 
-def read_temprature():
-    # TDOO: implement this!
-    print('Reading temprature')  # TODO: change to logging
+def read_temperature(device='default'):
+    # TODO: implement this!
+    log.info('Reading temperature on device \'{}\''.format(device))
     return TempratureReading(14.2)
