@@ -16,7 +16,7 @@ servers:
 paths:
   /current-temp:
     get:
-      operationId: 'system_info.get_temprature'
+      operationId: 'system_info.get_temperature'
       tags:
         - 'State'
       summary: |-
