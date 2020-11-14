@@ -1,0 +1,97 @@
+openapi: 3.0.7
+
+info:
+  title: Home auto API
+  description: |-
+    This API exposes endpoints for my home-automation system. 
+  contact:
+    name: API Owner
+    email: baard.krohg@gmail.com
+  version: 0.0.1
+  
+servers:
+  - url: https://0.0.0.0:8080/v1
+    description: localhost
+    
+paths:
+  /current-temp:
+    get:
+      operationId: 'system_info.get_temprature'
+      tags:
+        - 'State'
+      summary: |-
+        Get the current temprature in celcius.
+      responses:
+        '200':
+          description: Successful read of the temprature sensor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Temprature-Reading'
+              examples:
+                temprature-reading-example:
+                  $ref: '#/components/examples/temprature-reading-example'
+
+  /air-quality:
+    get:
+      operationId: 'system_info.get_air_quality'
+      tags:
+        - 'State'
+      summary: |-
+        Get a list of air quality readings, starting at time of call. If no
+        number of readings are specified, the last reading will be returned.
+      parameters:
+        - in: query
+          name: numReadings
+          schema:
+            type: integer
+          required: false
+          description: Number of readings to be retrieved
+      responses:
+        '200':
+          description: List of temprature readings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Air-Quality-Reading'
+              examples:
+                air-quality-reading-example:
+                  $ref: '#/components/examples/air-quality-reading-example'
+  
+
+components:
+  schemas:
+    Air-Quality-Reading:
+      type: object
+      properties:
+        co2_level:
+          type: number
+        timestamp:
+          type: string
+    Temprature-Reading:
+      type: object
+      properties:
+        temprature:
+          type: number
+        timestamp:
+          type: string
+      
+  examples:
+    temprature-reading-example:
+      value:
+        temprature: 27.8
+        timestamp: "2020-09-24T18:24:13"
+      summary: Succesful temprature read
+    air-quality-reading-example:
+      value:
+        - co2_level: 360.3
+          timestamp: "2020-10-24T16:00:00"
+        - co2_level: 371.19
+          timestamp: "2020-10-24T15:00:00"
+        - co2_level: 384.63
+          timestamp: "2020-10-24T14:00:00"          
+        - co2_level: 388.13
+          timestamp: "2020-10-24T13:00:00"
+        - co2_level: 391.74
+          timestamp: "2020-10-24T12:00:00"
+      summary: Reading of the 5 last air quality readings
